@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include("partials/head", { settings, title: "Home", canonical: baseUrl + "/" }) %>
+</head>
+<body class="min-h-screen bg-[#05070b] text-white">
+  <%- include("partials/navbar", { settings }) %>
+
+  <% if (ads.header) { %>
+  <div class="max-w-5xl mx-auto px-4 pt-4">
+    <div class="adbox"><%- ads.header %></div>
+  </div>
+  <% } %>
+
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <div class="flex items-end justify-between gap-3">
+      <h1 class="text-xl font-bold tracking-tight">Latest uploads</h1>
+      <div class="text-xs text-white/50">page <%= page %>/<%= totalPages %></div>
+    </div>
+
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <% videos.forEach(v => { %>
+        <a href="/v/<%= v.slug %>" class="card group">
+          <div class="aspect-video rounded-lg bg-white/5 border border-white/10 overflow-hidden relative">
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-tr from-white/0 via-white/0 to-white/10"></div>
+            <div class="absolute bottom-2 left-2 text-[11px] px-2 py-1 rounded bg-black/60 border border-white/10">
+              <%= (v.mime || "video").replace("video/","").toUpperCase() %> • <%= Math.round((v.size_bytes||0)/1024/1024) %>MB
+            </div>
+          </div>
+          <div class="mt-2">
+            <div class="font-semibold leading-snug line-clamp-2"><%= v.title %></div>
+            <div class="text-xs text-white/50 mt-1"><%= v.views %> views</div>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+
+    <div class="mt-6 flex items-center justify-center gap-2 text-sm">
+      <% if (page > 1) { %>
+        <a class="btn" href="/?page=<%= page-1 %>">Prev</a>
+      <% } %>
+      <% if (page < totalPages) { %>
+        <a class="btn" href="/?page=<%= page+1 %>">Next</a>
+      <% } %>
+    </div>
+  </div>
+
+  <%- include("partials/footer", { settings }) %>
+</body>
+</html>
