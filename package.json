@@ -1,0 +1,10 @@
+{
+  "name": "videy-local",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "NODE_ENV=development node server.js",
+    "start": "NODE_ENV=production node server.js"
+  }
+}
