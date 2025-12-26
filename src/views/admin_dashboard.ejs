@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head><%- include("partials/head", { settings, title: "Dashboard" }) %></head>
+<body class="min-h-screen bg-[#05070b] text-white">
+  <%- include("partials/navbar", { settings }) %>
+
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <div class="flex flex-wrap gap-2 text-sm">
+      <a class="btn" href="<%= ADMIN_PATH %>/upload">Upload</a>
+      <a class="btn" href="<%= ADMIN_PATH %>/videos">Videos</a>
+      <a class="btn" href="<%= ADMIN_PATH %>/ads">Ads</a>
+      <a class="btn" href="<%= ADMIN_PATH %>/settings">Settings</a>
+      <a class="btn" href="<%= ADMIN_PATH %>/logout">Logout</a>
+    </div>
+
+    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="stat"><div class="k">Total Videos</div><div class="v"><%= stats.totalVideos %></div></div>
+      <div class="stat"><div class="k">Published</div><div class="v"><%= stats.published %></div></div>
+      <div class="stat"><div class="k">Total Views</div><div class="v"><%= stats.totalViews %></div></div>
+      <div class="stat"><div class="k">Views 7d</div><div class="v"><%= stats.views7d %></div></div>
+    </div>
+
+    <div class="mt-5 rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-white/70">
+      URL panel kamu: <span class="text-white"><%= baseUrl + ADMIN_PATH %></span> (jangan share).
+    </div>
+  </div>
+
+  <%- include("partials/footer", { settings }) %>
+</body>
+</html>
