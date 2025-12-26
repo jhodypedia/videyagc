@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head><%- include("partials/head", { settings, title: "Ads Manager" }) %></head>
+<body class="min-h-screen bg-[#05070b] text-white">
+  <%- include("partials/navbar", { settings }) %>
+
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <div class="flex gap-2 text-sm">
+      <a class="btn" href="<%= ADMIN_PATH %>/">Dashboard</a>
+      <a class="btn" href="<%= ADMIN_PATH %>/upload">Upload</a>
+      <a class="btn" href="<%= ADMIN_PATH %>/videos">Videos</a>
+    </div>
+
+    <form method="post" class="mt-4 space-y-3">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <% slots.forEach(s => { %>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div class="flex items-center justify-between">
+            <div class="font-semibold"><%= s.name %> <span class="text-xs text-white/50">(<%= s.key %>)</span></div>
+            <label class="text-sm flex items-center gap-2">
+              <input type="checkbox" name="enabled__<%= s.key %>" value="1" <%= s.is_enabled ? "checked" : "" %>>
+              Enabled
+            </label>
+          </div>
+          <textarea class="inp mt-3 font-mono text-xs" rows="6" name="script__<%= s.key %>" placeholder="Paste Adsterra script here..."><%= s.script || "" %></textarea>
+          <div class="text-xs text-white/45 mt-2">Hardcore mode: script disimpan DB, dirender server-side, dan disanitize ringan saat tampil.</div>
+        </div>
+      <% }) %>
+
+      <button class="btn">Save Ads</button>
+    </form>
+  </div>
+
+  <%- include("partials/footer", { settings }) %>
+</body>
+</html>
